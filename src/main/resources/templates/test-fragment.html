@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<ul th:fragment="contentA">
+			<li th:each="idx : ${#numbers.sequence(1,4)}" th:switch="${idx}">
+	
+				<th:block th:case="1" 
+					th:include="test-fragment :: contentB"
+					th:with="strVar = 'One'" /> 
+					
+				<th:block th:case="2"
+					th:include="this :: contentB" 
+					th:with="strVar = 'Two'" /> 
+					
+				<th:block
+					th:case="3" 
+					th:include=" :: contentB" 
+					th:with="strVar = 'Three'" />
+	
+				<th:block th:case="*" 
+					th:include="/test-fragment :: contentB"
+					th:with="strVar = 'Other'" />
+			</li>
+		</ul>
+	
+		<span th:fragment="contentB"> 
+			<span th:text="|value: ${strVar}|" />
+		</span>
+	</body>
+</html>
